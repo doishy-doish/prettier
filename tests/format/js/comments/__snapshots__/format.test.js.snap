@@ -3458,6 +3458,73 @@ testFunction =
 ================================================================================
 `;
 
+exports[`issue-20220.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+semi: false
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function doStuff(
+    arg1 /*: string */, // The first arg
+    arg2 /*: string */ // The second arg
+) /*: Promise<string> */ // The return value
+{
+  console.log('thanks!');
+}
+
+function short(a, b /*: string */) /*: number */ {
+  return 1;
+}
+
+=====================================output=====================================
+async function doStuff(
+  arg1 /*: string */, // The first arg
+  arg2 /*: string */, // The second arg
+) /*: Promise<string> */ {
+  // The return value
+  console.log("thanks!")
+}
+
+function short(a, b /*: string */) /*: number */ {
+  return 1
+}
+
+================================================================================
+`;
+
+exports[`issue-20220.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+                                                      printWidth: 80 (default) |
+=====================================input======================================
+async function doStuff(
+    arg1 /*: string */, // The first arg
+    arg2 /*: string */ // The second arg
+) /*: Promise<string> */ // The return value
+{
+  console.log('thanks!');
+}
+
+function short(a, b /*: string */) /*: number */ {
+  return 1;
+}
+
+=====================================output=====================================
+async function doStuff(
+  arg1 /*: string */, // The first arg
+  arg2 /*: string */, // The second arg
+) /*: Promise<string> */ {
+  // The return value
+  console.log("thanks!");
+}
+
+function short(a, b /*: string */) /*: number */ {
+  return 1;
+}
+
+================================================================================
+`;
+
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

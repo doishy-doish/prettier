@@ -612,6 +612,22 @@ function handleLastFunctionParameterComments({
     return true;
   }
 
+  // Flow return type comment between `)` and the body, with a parser that
+  // produces no returnType node (plain babel): `function f(a) /*: T */ {}`
+  // belongs after `)`, not trailing on the last parameter.
+  if (
+    isBlockComment(comment) &&
+    isRealFunctionLikeNode(enclosingNode) &&
+    !enclosingNode.returnType &&
+    followingNode?.type === "BlockStatement" &&
+    getFunctionParameters(enclosingNode).includes(precedingNode) &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "{" &&
+    /^\s*:/.test(comment.value)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   // Comment between function parameters parentheses and function body
   if (
     !isBlockComment(comment) &&
